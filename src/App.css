@@ -1,0 +1,13 @@
+/* Overall App Container */
+.app {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+/* Title Style */
+.app-title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333333;
+}

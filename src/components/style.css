@@ -1,0 +1,549 @@
+Container for the whole map and controls
+.earthquake-map-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* Controls layout */
+  .controls-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  /* Search filter and time range selector layout */
+  .filter-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  /* Error message styles */
+  .error-message {
+    padding: 20px;
+    background-color: #fde2e2;
+    border: 1px solid #f8d7da;
+    border-radius: 8px;
+    color: #842029;
+    font-weight: bold;
+  }
+  
+  /* Map container */
+  .map-container {
+    position: relative;
+    height: 500px;
+  }
+  
+  /* Map styles */
+  .map {
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Spinner styles */
+  .loading-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  /* Quake stats styles */
+  .stats-container {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+  }
+  
+  .stats-container p {
+    margin: 0;
+  }
+  
+  /* Quake Details modal (if any) */
+  .quake-details {
+    position: fixed;
+    top: 20%;
+    left: 20%;
+    right: 20%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+  }
+  .quake-icon {
+    border-radius: 50%;
+    opacity: 0.8;
+  }
+  
+  .popup-content {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  
+  .quake-place {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  .filter-panel {
+    background-color: white;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 16px;
+  }
+  
+  .filter-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  
+  .filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .filter-option {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .filter-label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  .filter-range {
+    width: 100%;
+  }
+  
+  .filter-value {
+    font-size: 14px;
+    color: #555;
+    margin-top: 4px;
+  }
+  
+  .filter-select {
+    margin-top: 8px;
+    padding: 8px;
+    width: 100%;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+  }
+  
+  .spinner-container {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between spinner and text */
+  }
+  
+  .spinner {
+    animation: spin 1s linear infinite;
+    height: 20px;
+    width: 20px;
+    color: #007bff; /* Blue color for spinner */
+  }
+  
+  .spinner-circle {
+    opacity: 0.25;
+  }
+  
+  .spinner-path {
+    opacity: 0.75;
+  }
+  
+  .loading-text {
+    font-size: 14px;
+    color: #555; /* Gray color for text */
+  }
+  
+  /* Keyframes for spinner rotation */
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .magnitude-filter {
+    background-color: #ffffff;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 16px;
+  }
+  
+  .filter-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333333;
+    margin-bottom: 8px;
+  }
+  
+  .magnitude-value {
+    font-weight: bold;
+    color: #007bff; /* Blue color for emphasis */
+  }
+  
+  .range-slider {
+    width: 100%;
+    appearance: none;
+    height: 6px;
+    background: #d3d3d3;
+    border-radius: 5px;
+    outline: none;
+    transition: background 0.3s;
+  }
+  
+  .range-slider:hover {
+    background: #cccccc;
+  }
+  
+  /* Handle styling for the slider */
+  .range-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #007bff; /* Blue color for the thumb */
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .range-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #007bff;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .quake-details {
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    font-family: Arial, sans-serif;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #555;
+    cursor: pointer;
+  }
+  
+  .close-button:hover {
+    color: #000;
+  }
+  
+  .title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  
+  .details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  
+  .detail-heading {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #333;
+  }
+  
+  .magnitude {
+    font-weight: bold;
+  }
+  
+  .magnitude-high {
+    color: #ff0000; /* Red for high magnitude */
+  }
+  
+  .magnitude-medium {
+    color: #ff8c00; /* Orange for medium magnitude */
+  }
+  
+  .magnitude-low {
+    color: #ffd700; /* Yellow for low magnitude */
+  }
+  
+  .magnitude-minor {
+    color: #008000; /* Green for minor magnitude */
+  }
+  
+  .status {
+    text-transform: capitalize;
+  }
+  .quake-marker {
+    transition: border 0.2s, transform 0.2s;
+  }
+  
+  .quake-marker:hover {
+    transform: scale(1.2);
+  }
+  
+  .popup-content {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+  }
+  
+  .popup-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+/* Grid Layout for Stats */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    margin: 16px 0;
+  }
+  
+  /* Individual Stat Card */
+  .stat-card {
+    padding: 16px;
+    border-radius: 8px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Title Styling */
+  .stat-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  
+  /* Value Styling */
+  .stat-value {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  /* Color Classes */
+  .stat-card.blue {
+    background-color: #e0f2ff;
+    color: #0077b6;
+  }
+  
+  .stat-card.green {
+    background-color: #e6ffe0;
+    color: #228b22;
+  }
+  
+  .stat-card.red {
+    background-color: #ffe0e0;
+    color: #d32f2f;
+  }
+  
+  .stat-card.purple {
+    background-color: #f3e5f5;
+    color: #6a1b9a;
+  }
+/* Container for the search filter */
+.filter-container {
+    background-color: #ffffff;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Group for individual input elements */
+  .filter-group {
+    margin-bottom: 16px;
+  }
+  
+  /* Label styling */
+  .filter-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #333333;
+  }
+  
+  /* Input styling for text fields */
+  .filter-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease-in-out;
+  }
+  
+  .filter-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+  }
+  
+  /* Input styling for range sliders */
+  .filter-range {
+    width: 100%;
+    cursor: pointer;
+  }
+/* Container for the time range selector */
+.time-range-selector {
+    background-color: #ffffff;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Group for the select element */
+  .time-range-group {
+    margin-bottom: 16px;
+  }
+  
+  /* Label styling */
+  .time-range-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #333333;
+  }
+  
+  
+  .time-range-select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease-in-out;
+  }
+  
+  .time-range-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+  }
+  
+  
+  .last-update {
+    font-size: 12px;
+    color: #6b6b6b;
+  }
+  @media (max-width: 600px) {
+    .controls-container {
+        grid-template-columns: 1fr; /* Single column layout */
+    }
+
+    .filter-controls {
+        gap: 8px;
+    }
+
+    .map-container {
+        height: 300px; /* Smaller map size for mobile */
+    }
+
+    .filter-input,
+    .filter-select,
+    .date-input {
+        width: 100%; /* Full width for inputs */
+    }
+
+    .filter-panel,
+    .quake-details {
+        padding: 12px;
+    }
+
+    .stats-container {
+        padding: 12px;
+    }
+
+    .filter-label,
+    .magnitude-value {
+        font-size: 12px;
+    }
+
+    .filter-select {
+        font-size: 12px;
+    }
+}
+
+/* Tablet: max-width 1024px */
+@media (max-width: 1024px) {
+    .controls-container {
+        grid-template-columns: 1fr 1fr; /* Two-column layout for tablet */
+    }
+
+    .map-container {
+        height: 400px;
+    }
+
+    .filter-controls {
+        gap: 12px;
+    }
+
+    .stats-container {
+        padding: 16px;
+    }
+
+    .filter-select {
+        font-size: 14px;
+    }
+
+    .quake-details {
+        width: 80%; /* Smaller width for tablet */
+    }
+}
+
+/* Desktop: min-width 1024px */
+@media (min-width: 1024px) {
+    .controls-container {
+        grid-template-columns: 1fr 1fr 0fr; /* Three-column layout for desktop */
+    }
+
+    .map-container {
+        height: 500px;
+    }
+
+    .quake-details {
+        width: 60%; /* Larger width for desktop */
+    }
+
+    .stats-container {
+        padding: 20px;
+    }
+
+    .filter-select {
+        font-size: 16px;
+    }
+
+    .filter-panel {
+        padding: 20px;
+    }
+}            
